@@ -105,6 +105,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Lazy loading for images when they're added
     lazyLoadImages();
+
+    // Read more functionality for review cards
+    document.querySelectorAll('.read-more-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const card = this.closest('.review-card');
+            card.classList.toggle('expanded');
+            if (card.classList.contains('expanded')) {
+                this.textContent = 'Read less';
+            } else {
+                this.textContent = 'Read more';
+            }
+        });
+    });
 });
 
 // Utility functions
