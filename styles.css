@@ -43,39 +43,39 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 80px;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
     text-decoration: none;
     color: var(--primary-blue);
 }
 
 .logo-image {
-    height: 50px;
+    height: 60px;
     width: auto;
     object-fit: contain;
 }
 
 .logo-text {
     font-weight: 700;
-    font-size: 24px;
+    font-size: 28px;
     color: var(--primary-orange);
 }
 
 .nav-links {
     display: flex;
-    gap: 32px;
+    gap: 40px;
 }
 
 .nav-link {
     text-decoration: none;
     color: var(--gray-700);
     font-weight: 500;
-    font-size: 16px;
+    font-size: 18px;
     transition: all 0.3s ease;
     position: relative;
     padding: 8px 0;
@@ -105,7 +105,7 @@ body {
     display: none;
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 28px;
     color: var(--gray-700);
     cursor: pointer;
     padding: 8px;
@@ -116,7 +116,10 @@ body {
     position: relative;
     height: 100vh;
     min-height: 600px;
-    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+    background-image: url('images/main-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,7 +131,7 @@ body {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(30, 58, 138, 0.8);
+    background: rgba(30, 58, 138, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -404,9 +407,11 @@ body {
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
     margin: 0 auto 25px;
     border: 4px solid var(--primary-orange);
+    object-fit: cover;
+    object-position: 50% 25%;
+    transform: scale(1.4);
 }
 
 .team-card h3 {
@@ -619,17 +624,20 @@ body {
 .reviews-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
+    gap: 50px;
 }
 
 .review-card {
     background: white;
     border-radius: 16px;
-    padding: 35px;
+    padding: 30px; /* Adjusted padding for better spacing */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
     transition: all 0.3s ease;
     border: 1px solid #f3f4f6;
     position: relative;
+    display: flex; /* Use flexbox for internal layout */
+    flex-direction: column; /* Stack content vertically */
+    justify-content: flex-start; /* Align content to the top */
 }
 
 .review-card:hover {
@@ -642,7 +650,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px; /* Adjusted margin */
 }
 
 .stars {
@@ -666,9 +674,57 @@ body {
 
 .review-text {
     line-height: 1.7;
-    margin-bottom: 25px;
+    margin-bottom: 15px; /* Adjusted margin */
     color: var(--gray-700);
     font-size: 16px;
+    position: relative; /* Needed for the fade effect */
+}
+
+/* Truncate text and add fade effect */
+.review-card.has-read-more .review-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 7; /* Number of lines to show before truncating, adjusted to 7 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative; /* Ensure relative positioning for pseudo-element */
+}
+
+.review-card.has-read-more .review-text::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px; /* Height of the fade effect */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+    pointer-events: none; /* Allow text selection through the gradient */
+}
+
+.review-card.expanded .review-text {
+    -webkit-line-clamp: unset; /* Show full text when expanded */
+    overflow: visible;
+    text-overflow: unset;
+}
+
+.review-card.expanded .review-text::after {
+    display: none; /* Hide fade effect when expanded */
+}
+
+.read-more-btn {
+    align-self: flex-end; /* Position button to the right within flex container */
+    margin-top: 10px; /* Space above the button */
+    background: var(--primary-orange);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.read-more-btn:hover {
+    background: var(--orange-hover);
 }
 
 .review-footer {
@@ -676,6 +732,7 @@ body {
     justify-content: space-between;
     align-items: center;
     font-size: 0.875rem;
+    margin-top: 15px; /* Adjusted margin */
 }
 
 .reviewer-name {
@@ -972,5 +1029,39 @@ body {
 @media (max-width: 768px) {
     .nav-links {
         display: none;
+    }
+}
+
+.discount-banner {
+    background-color: var(--primary-orange);
+    color: white;
+    padding: 15px 0;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.discount-banner:hover .discount-banner-content {
+    animation-play-state: paused;
+}
+
+.discount-banner-content {
+    display: flex;
+    width: max-content; /* Allow content to take its natural width */
+    animation: marquee-ltr 40s linear infinite;
+}
+
+.discount-banner-text {
+    padding: 0 2rem;
+    flex-shrink: 0;
+    white-space: nowrap; /* Ensure text stays on one line */
+}
+
+@keyframes marquee-ltr {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%); /* Scroll by half the content width for seamless loop */
     }
 }
